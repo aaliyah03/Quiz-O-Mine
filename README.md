@@ -5,15 +5,15 @@ Name of project in Android Studio - **Game**
 ## Activities 
 
 - **Home**
-Activity Name: MainActivity 
+  Activity Name: MainActivity 
 
 - **Grid**
-Activity Name: Grid
+  Activity Name: Grid
 
 - **Quiz**
-Activity Name: Quiz
+  Activity Name: Quiz
 
 - **Result**
-Activity Name: Result
+  Activity Name: Result
 
 - Rules Page (optional)
