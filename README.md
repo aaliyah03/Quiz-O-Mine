@@ -5,6 +5,8 @@ Name of project in Android Studio - **Game**
 ## Activities 
 
 - **Home**
+
+
   Activity Name: MainActivity 
 
 - **Grid**
