@@ -1,10 +1,11 @@
-# Tours-Travels
+# Minesweeper 2.0
 
-Name of application - Travelogue
+Name of project in Android Studio - #Game 
 
-## App Pages -
+## Activities 
+
 - Home Page
-- Flight Booking Page
-- Accomodation Booking Page
-- Favorites Page
-- Final Itinerary and Bill Page
+- Game Page
+- Quiz Page
+- Result Page
+- Rules Page (optional)
