@@ -1,6 +1,6 @@
 # Minesweeper 2.0
 
-Name of project in Android Studio - #Game 
+Name of project in Android Studio - # Game 
 
 ## Activities 
 
