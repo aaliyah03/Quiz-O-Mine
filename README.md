@@ -4,8 +4,16 @@ Name of project in Android Studio - **Game**
 
 ## Activities 
 
-- Home Page
-- Game Page
-- Quiz Page
-- Result Page
+- **Home**
+Activity Name: MainActivity 
+
+- **Grid**
+Activity Name: Grid
+
+- **Quiz**
+Activity Name: Quiz
+
+- **Result**
+Activity Name: Result
+
 - Rules Page (optional)
