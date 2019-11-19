@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Result"
+    android:layout_margin="20dp">
+
+    <TextView
+        android:id="@+id/resultTV"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/picIV"
+        android:layout_width="344dp"
+        android:layout_height="245dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="113dp" />
+
+    <Button
+        android:id="@+id/replayButton"
+        android:layout_width="164dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
+        android:text="Replay!" />
+
+    <Button
+        android:id="@+id/homeButton"
+        android:layout_width="164dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="Home"
+        android:onClick="goHome"/>
+
+    <TextView
+        android:id="@+id/shareTV"
+        android:layout_width="343dp"
+        android:layout_height="44dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="74dp"
+        android:text="Share your result with your friends!" />
+
+    <Button
+        android:id="@+id/picButton"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="See image!"
+        android:onClick="displayPic"/>
+</RelativeLayout>
