@@ -1,3 +1,5 @@
+//working on the db functions
+
 package com.example.android.iqomine;
 
 import android.content.Intent;
