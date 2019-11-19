@@ -1,1 +1,92 @@
-//to be updated
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp">
+
+    <TextView
+        android:id="@+id/gameNameTV"
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Game Name "
+        android:textAlignment="center" />
+
+    <ImageView
+        android:layout_width="346dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/download" />
+
+    <Button
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="playGame"
+        android:text="PLAY"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="31dp"
+        />
+
+    <TextView
+        android:id="@+id/oldPlayerTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="203dp"
+        android:layout_marginStart="31dp"
+        android:text="Old Player?" />
+
+
+    <EditText
+        android:id="@+id/newPlayerET"
+        android:layout_width="244dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/insertButton"
+        android:layout_alignParentStart="true"
+        android:ems="10"
+        android:hint="New player? Enter your name"
+        android:inputType="textPersonName" />
+
+    <Spinner
+        android:id="@+id/oldSpinner"
+        android:layout_width="162dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/oldPlayerTV"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/highScoresTV"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignEnd="@+id/oldPlayerTV"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="-243dp"
+        android:maxLines="3" />
+
+    <Button
+        android:id="@+id/insertButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="144dp"
+        android:onClick="addPlayerToDB"
+        android:text="Insert" />
+
+
+</RelativeLayout>
