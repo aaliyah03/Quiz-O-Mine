@@ -1,27 +1,49 @@
-//still working on countdown timer
+/*goal: click on all green buttons within specified amt of time. if red button clicked - then question will appear and time reduced by 50 s. once all green buttons are clicked, then game over. if time is still left then you won, else you've lost*/
+
 package com.example.game;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.File;
 import java.math.*;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Grid extends AppCompatActivity {
 
+    //initializations
     ImageButton b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16;
-    TextView t1, t2;
+    TextView t1, counttime1;
+
+    //for quiz
     int arr[];
     int nooflives;
-    public int counter1 = 9;
-    public int counter2 = 59;
+    public int counter1 = 180;
+    String questions[] = {"Amartya Sen was awarded the Nobel prize for his contribution to Literature","William Hewlett and David Packard set up a small company called apple","Pacific Ocean is the largest ocean on Earth","The National Anthem of Spain has no words","In Greek mythology, Hades, Zeus and Poseidon are all brothers.\n" +
+            "\n","Angel Falls in Venezuela is the world's largest waterfall","The Earthworm has no eyes","It's colder at the Arctic than at the Antarctic","Bananas grow on trees","Carrots help you see in the dark","If a piece of paper was folded 45 times, it would reach to the moon","It rains diamonds on Saturn and Jupiter"};
+    String answers[] = {"False", "False","True","True","True","True","True","False","False","False","True","True"};
+    int used[] = {0,0,0,0,0,0,0,0,0,0,0,0};
+    int ques = 0;
+
+    //for result
+    int won = -1;
+    int green = 10; //to keep a check on green buttons clicked
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,46 +67,113 @@ public class Grid extends AppCompatActivity {
         b14 = (ImageButton) findViewById(R.id.b14);
         b15 = (ImageButton) findViewById(R.id.b15);
         b16 = (ImageButton) findViewById(R.id.b16);
-        t1 = (TextView) findViewById(R.id.lives);
 
-        final TextView counttime1 = findViewById(R.id.timermin);
-        final TextView counttime2 = (TextView) findViewById(R.id.timersec);
+        counttime1 = findViewById(R.id.timer);
 
-        new CountDownTimer(600000,60000) {
+        //final CountDownTimer timer;
+
+        new CountDownTimer(180000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 counttime1.setText(String.valueOf(counter1));
                 counter1 --;
             }
+
             @Override
             public void onFinish() {
-                counttime1.setText("Finished");
-                timeup();
+                //call result activity
+                //timeup();
+                Intent intent = new Intent(Grid.this, Result.class);
+                won = 0;
+                intent.putExtra("result", won);
+                startActivity(intent);
             }
         }.start();
-
-        while(counter1!=0) {
-            new CountDownTimer(59000,1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    counttime2.setText(String.valueOf(counter2));
-                    counter2 --;
-                }
-                @Override
-                public void onFinish() {
-
-                }
-            }.start();
-
-        }
 
         Intent in = getIntent();
         mine();     //mines have been generated
         nooflives = 3;
     }
 
-    public void timeup() {
-        Toast.makeText(this, "Your time is up!", Toast.LENGTH_SHORT).show(); //add intent to result activity
+    public void restart(View view) {
+        Intent obj2 = new Intent(this, Grid.class);
+        startActivity(obj2);
+    }
+
+    public void openDialog() {
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+        // Set Custom Title
+        TextView title = new TextView(this);
+        // Title Properties
+        title.setText("Penalty Question!");
+        title.setPadding(10, 10, 10, 10);   // Set Position
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.BLACK);
+        title.setTextSize(20);
+        alertDialog.setCustomTitle(title);
+
+        // Set Message
+        TextView msg = new TextView(this);
+        // choosing question
+        int set = 0;
+        String s = "";
+        while (set != 1) {
+            double m = (Math.random() * ((13 - 1) + 1)) + 1; //since higher limit excluded
+            ques = (int) m;
+            ques = ques % 12;
+            if (used[ques] == 0) {
+                s = questions[ques];
+                used[ques] = 1;
+                set = 1;
+            }
+        }
+
+        msg.setText(s);
+        msg.setGravity(Gravity.CENTER_HORIZONTAL);
+        msg.setTextColor(Color.BLACK);
+        alertDialog.setView(msg);
+
+        // Set Button you can more buttons
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "True", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                //if answer matches then lives ++
+                if(answers[ques] == "True") {
+                    Toast.makeText(getApplicationContext(),"Correct answer!",Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Wrong answer!",Toast.LENGTH_LONG).show();
+                }
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "False", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if(answers[ques] == "False") {
+                    Toast.makeText(getApplicationContext(),"Correct answer!",Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Wrong answer!",Toast.LENGTH_LONG).show();
+                }
+                dialog.dismiss();
+            }
+        });
+
+        new Dialog(getApplicationContext());
+        alertDialog.show();
+
+        // Set Properties for OK Button
+        final Button okBT = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+        LinearLayout.LayoutParams neutralBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
+        neutralBtnLP.gravity = Gravity.FILL_HORIZONTAL;
+        okBT.setPadding(50, 10, 10, 10);   // Set Position
+        okBT.setTextColor(Color.BLUE);
+
+        final Button cancelBT = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
     }
 
     public void mine() { //will randomly generate 6 distinct random numbers between 1-16, which will act as mines
@@ -105,16 +194,22 @@ public class Grid extends AppCompatActivity {
         }
     }
 
+    //if mine, question is asked and time decreased
     public void ifmine() {
-        Toast.makeText(this, "You have clicked on a mine!", Toast.LENGTH_SHORT).show(); //add intent to quiz activity
-        nooflives--; //lives decreased
-        if(nooflives == 0) {
-            Toast.makeText(this, "You have lost all lives!", Toast.LENGTH_SHORT).show(); //add intent to result activity
+        Toast.makeText(this, "You have clicked on a mine! Answer the penalty question", Toast.LENGTH_SHORT).show(); //quiz dialog box open
+        openDialog();
+    }
+
+    //if not mine, then counter decreased and if all green done then result displayed
+    public void ifnotmine() {
+        green --;
+        if(green == 0) {
+            Intent obj = new Intent(this, Result.class);
+            won = 1;
+            obj.putExtra("result", won);
+            startActivity(obj);
         }
-        else {
-            String s = String.valueOf(nooflives);
-            t1.setText(s);
-        }
+
     }
 
     public void f1(View view) {
@@ -122,8 +217,10 @@ public class Grid extends AppCompatActivity {
             b1.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b1.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 
     public void f2(View view) {
@@ -131,9 +228,10 @@ public class Grid extends AppCompatActivity {
             b2.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b2.setImageResource(android.R.drawable.presence_online);
-
+            ifnotmine();
+        }
     }
 
     public void f3(View view) {
@@ -141,8 +239,10 @@ public class Grid extends AppCompatActivity {
             b3.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b3.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 
     public void f4(View view) {
@@ -150,17 +250,21 @@ public class Grid extends AppCompatActivity {
             b4.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b4.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 
     public void f5(View view) {
         if(arr[4] == 1) { //clicked on mine
             b5.setImageResource(android.R.drawable.ic_delete);
-           ifmine();
+            ifmine();
         }
-        else
+        else {
             b5.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 
     public void f6(View view) {
@@ -168,8 +272,10 @@ public class Grid extends AppCompatActivity {
             b6.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b6.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 
     public void f7(View view) {
@@ -177,8 +283,10 @@ public class Grid extends AppCompatActivity {
             b7.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b7.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 
     public void f8(View view) {
@@ -186,8 +294,10 @@ public class Grid extends AppCompatActivity {
             b8.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b8.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 
     public void f9(View view) {
@@ -195,8 +305,10 @@ public class Grid extends AppCompatActivity {
             b9.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b9.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 
     public void f10(View view) {
@@ -204,8 +316,10 @@ public class Grid extends AppCompatActivity {
             b10.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b10.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 
     public void f11(View view) {
@@ -213,8 +327,10 @@ public class Grid extends AppCompatActivity {
             b11.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b11.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 
     public void f12(View view) {
@@ -222,8 +338,10 @@ public class Grid extends AppCompatActivity {
             b12.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b12.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 
     public void f13(View view) {
@@ -231,8 +349,10 @@ public class Grid extends AppCompatActivity {
             b13.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b13.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 
     public void f14(View view) {
@@ -240,8 +360,10 @@ public class Grid extends AppCompatActivity {
             b14.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b14.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 
     public void f15(View view) {
@@ -249,8 +371,10 @@ public class Grid extends AppCompatActivity {
             b15.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b15.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 
     public void f16(View view) {
@@ -258,7 +382,9 @@ public class Grid extends AppCompatActivity {
             b16.setImageResource(android.R.drawable.ic_delete);
             ifmine();
         }
-        else
+        else {
             b16.setImageResource(android.R.drawable.presence_online);
+            ifnotmine();
+        }
     }
 }
