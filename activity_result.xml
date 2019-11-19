@@ -1,3 +1,5 @@
+
+
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -5,58 +7,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Result"
-    android:layout_margin="20dp">
+    android:background="#37474F">
 
     <TextView
         android:id="@+id/resultTV"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="TextView" />
-
-    <ImageView
-        android:id="@+id/picIV"
-        android:layout_width="344dp"
-        android:layout_height="245dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="113dp" />
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="64dp"
+        android:text="YOU WIN!"
+        android:textSize="98sp"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif"/>
 
     <Button
         android:id="@+id/replayButton"
-        android:layout_width="164dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_width="300dp"
+        android:layout_height="63dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="0dp"
-        android:text="Replay!" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="70dp"
+        android:background="#FFA726"
+        android:text="Replay!"
+        android:textSize="24dp" />
 
     <Button
         android:id="@+id/homeButton"
-        android:layout_width="164dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_width="301dp"
+        android:layout_height="63dp"
         android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="58dp"
+        android:layout_marginBottom="166dp"
+        android:background="#FFA726"
+        android:onClick="goHome"
         android:text="Home"
-        android:onClick="goHome"/>
+        android:textSize="24dp" />
 
     <TextView
         android:id="@+id/shareTV"
-        android:layout_width="343dp"
-        android:layout_height="44dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="74dp"
-        android:text="Share your result with your friends!" />
-
-    <Button
-        android:id="@+id/picButton"
-        android:layout_width="328dp"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="See image!"
-        android:onClick="displayPic"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="274dp"
+        android:background=""
+        android:fontFamily="cursive"
+        android:text="Share your result with your friends!"
+        android:textAlignment="center"
+        android:textColor="#FFA726"
+        android:textSize="48sp"
+        android:textStyle="bold" />
+
 </RelativeLayout>
