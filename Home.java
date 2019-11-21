@@ -11,43 +11,98 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class Home extends AppCompatActivity {
     Spinner s1;
     Button b1;
     int flag = 0;
     MediaPlayer mobj;
+    Button addUser;
+    DatabaseHelper mydb;
+    EditText etname;
+    Spinner allPlayers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         mobj = new MediaPlayer();
-
-        s1=(Spinner)findViewById(R.id.spinner1);
+        s1 = (Spinner) findViewById(R.id.spinner1);
         b1 = (Button) findViewById(R.id.button1);
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String string = String.valueOf(s1.getSelectedItem());
-                if(string.equalsIgnoreCase("Mellow")) {
+                if (string.equalsIgnoreCase("Mellow")) {
                     playSong1();
-                }
-
-                else if(string.equalsIgnoreCase("Ambience")) {
+                } else if (string.equalsIgnoreCase("Ambience")) {
                     playSong2();
-                }
-
-                else {
+                } else {
                     playSong3();
                 }
             }
         });
+
+        mydb = new DatabaseHelper(this);
+
+        addUser = (Button) findViewById(R.id.addbutton);
+        etname = (EditText) findViewById(R.id.insertET);
+        allPlayers = (Spinner) findViewById(R.id.spinner);
+        loadSpinner();
+        addPlayer();
+    }
+
+    public void addPlayer()
+    {
+        addUser.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean isInserted= mydb.insertPlayer(etname.getText().toString(),
+                                "0");
+                        if(isInserted ==true)
+                            Toast.makeText(Home.this, "Player added", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(Home.this, "Player not added", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        loadSpinner(); //with new data
+    }
+
+    public void loadSpinner()
+    {
+        DatabaseHelper db= new DatabaseHelper(getApplicationContext());
+        List<String> names= db.getNames();
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, names);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        allPlayers.setAdapter(dataAdapter);
+    }
+
+    public void onItemSelected(AdapterView<?> parent, View view, int position,
+                               long id) {
+        // On selecting a spinner item
+        String label = parent.getItemAtPosition(position).toString();
+
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "You selected: " + label,
+                Toast.LENGTH_SHORT).show();
+
     }
 
     public void playSong1() {
