@@ -44,11 +44,9 @@ public class Grid extends AppCompatActivity {
     int ques = 0;
 
     //for result
-    int won = -1;
     int flag = 0;
     int green = 10; //to keep a check on green buttons clicked
-    //String sendresult = "";
-
+    int score = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +96,13 @@ public class Grid extends AppCompatActivity {
         if(flag == 1) {
             Intent intent = new Intent(Grid.this, Result.class);
             intent.putExtra("result", 1);
+            intent.putExtra("score", score);
             startActivity(intent);
         }
         else if(flag == 0) {
             Intent intent = new Intent(Grid.this, Result.class);
             intent.putExtra("result", 0);
+            intent.putExtra("score", score);
             startActivity(intent);
         }
     }
@@ -158,13 +158,13 @@ public class Grid extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 //if answer matches then lives ++
                 if(answers[ques] == "True") {
-                    Toast.makeText(getApplicationContext(),"Correct answer!",Toast.LENGTH_LONG).show();
-                    //dialog.dismiss();
+                    Toast.makeText(getApplicationContext(),"Correct answer!",Toast.LENGTH_SHORT).show();
+                    increasescore();
                     dialog.cancel();
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),"Wrong answer! Life Lost",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Wrong answer! Life Lost",Toast.LENGTH_SHORT).show();
                     sendanswer();
                 }
 
@@ -175,12 +175,12 @@ public class Grid extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
                 if(answers[ques] == "False") {
-                    Toast.makeText(getApplicationContext(),"Correct answer!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Correct answer! Scored",Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),"Wrong answer! Life Lost",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Wrong answer! Life Lost",Toast.LENGTH_SHORT).show();
                     sendanswer();
                 }
 
@@ -201,6 +201,12 @@ public class Grid extends AppCompatActivity {
         cancelBT.setTextColor(Color.BLUE);
     }
 
+    //to increase score in case of correct answer
+    public void increasescore() {
+        score++;
+    }
+
+    //to decrease lives in case of wrong answer
     public void sendanswer() {
         nooflives--;
         if(nooflives == 0) {
@@ -238,8 +244,6 @@ public class Grid extends AppCompatActivity {
     public void ifnotmine() {
         green --;
         if(green == 0) {
-            //Intent obj = new Intent(this, Result.class);
-            won = 1;
             flag = 1;
             thisone();
         }
