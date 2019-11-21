@@ -1,69 +1,64 @@
-
-
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Result"
-    android:background="#37474F">
+    tools:context=".Result">
 
     <TextView
-        android:id="@+id/resultTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="64dp"
-        android:text="YOU WIN!"
-        android:textSize="98sp"
-        android:textColor="#FFFFFF"
+        android:id="@+id/ress"
+        android:layout_width="355dp"
+        android:layout_height="81dp"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#FFC107"
+        android:text=""
         android:textAlignment="center"
-        android:fontFamily="sans-serif"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp" />
+
+    <ImageView
+        android:layout_width="195dp"
+        android:id="@+id/ressult"
+        android:layout_centerHorizontal="true"
+        android:layout_height="195dp"
+        android:layout_below="@id/ress"
+        android:layout_marginEnd="0dp" />
 
     <Button
-        android:id="@+id/replayButton"
+        android:id="@+id/replay"
         android:layout_width="300dp"
-        android:layout_height="63dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="52dp"
-        android:layout_marginBottom="70dp"
+        android:layout_height="45dp"
         android:background="#FFA726"
-        android:text="Replay!"
-        android:textSize="24dp" />
+        android:layout_below="@id/ressult"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:onClick="replay"
+        android:text="REPLAY"
+        android:textColor="#000000"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="31dp" />
 
     <Button
-        android:id="@+id/homeButton"
-        android:layout_width="301dp"
-        android:layout_height="63dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="58dp"
-        android:layout_marginBottom="166dp"
+        android:id="@+id/home"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
         android:background="#FFA726"
-        android:onClick="goHome"
-        android:text="Home"
-        android:textSize="24dp" />
+        android:onClick="gotohomeagain"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/replay"
+        android:text="HOME"
+        android:textColor="#000000"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="31dp" />
 
     <TextView
-        android:id="@+id/shareTV"
-        android:layout_width="379dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="274dp"
-        android:background=""
-        android:fontFamily="cursive"
-        android:text="Share your result with your friends!"
-        android:textAlignment="center"
-        android:textColor="#FFA726"
-        android:textSize="48sp"
-        android:textStyle="bold" />
+        android:id="@+id/topscoresTV"
+        android:layout_width="match_parent"
+        android:layout_height="153dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/home"
+        android:text="TextView" />
 
 </RelativeLayout>
