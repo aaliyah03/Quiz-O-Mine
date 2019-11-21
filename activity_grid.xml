@@ -2,65 +2,40 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimaryDark"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Grid">
 
     <TextView
-        android:id="@+id/timermin"
-        android:layout_width="wrap_content"
+        android:id="@+id/timer"
+        android:layout_width="76dp"
         android:layout_height="wrap_content"
-        android:text="09"
-        android:textColor="@color/colorPrimaryDark"
+        android:text="180"
+        android:textColor="#FF0404"
+        android:layout_toRightOf="@id/textView2"
+        android:layout_marginLeft="20dp"
         android:textSize="40dp"
         tools:layout_editor_absoluteX="118dp"
         tools:layout_editor_absoluteY="34dp" />
 
     <TextView
-        android:id="@+id/tcolon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/timermin"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="40dp"
-        android:text=":" />
-
-    <TextView
-        android:id="@+id/timersec"
-        android:layout_width="145dp"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tcolon"
-        android:textColor="@color/colorPrimaryDark"
-        android:text="59"
-        android:textSize="40dp" />
-
-    <TextView
-        android:id="@+id/lives_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_toRightOf="@id/timersec"
-        android:text="Lives"
-        android:textSize="40dp" />
-
-    <TextView
-        android:id="@+id/lives"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="7dp"
-        android:layout_toRightOf="@+id/lives_text"
-        android:ems="10"
-        android:gravity="center"
-        android:text="3"
+        android:id="@+id/sec"
+        android:layout_width="92dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="-5dp"
+        android:layout_toRightOf="@id/timer"
+        android:textColor="@color/colorAccent"
+        android:text="sec"
         android:textSize="40dp" />
 
     <ImageButton
         android:id="@+id/b1"
         android:layout_width="77dp"
         android:layout_height="74dp"
-        android:layout_below="@id/timermin"
-        android:layout_marginTop="85dp"
+        android:layout_below="@id/timer"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
         android:onClick="f1"
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
@@ -68,9 +43,9 @@
         android:id="@+id/b2"
         android:layout_width="77dp"
         android:layout_height="74dp"
-        android:layout_below="@id/timermin"
+        android:layout_below="@id/timer"
         android:layout_marginLeft="18dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="30dp"
         android:layout_toRightOf="@id/b1"
         android:onClick="f2"
         app:srcCompat="@drawable/ic_launcher_foreground" />
@@ -79,9 +54,9 @@
         android:id="@+id/b3"
         android:layout_width="77dp"
         android:layout_height="74dp"
-        android:layout_below="@id/timermin"
+        android:layout_below="@id/timer"
         android:layout_marginLeft="18dp"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="30dp"
         android:layout_toRightOf="@id/b2"
         android:onClick="f3"
         app:srcCompat="@drawable/ic_launcher_foreground" />
@@ -90,9 +65,9 @@
         android:id="@+id/b4"
         android:layout_width="77dp"
         android:layout_height="74dp"
-        android:layout_below="@id/lives"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="85dp"
+        android:layout_below="@id/timer"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="30dp"
         android:layout_toRightOf="@id/b3"
         android:onClick="f4"
         app:srcCompat="@drawable/ic_launcher_foreground" />
@@ -227,7 +202,59 @@
         android:onClick="f16"
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        android:textColor="@color/colorAccent"
+        android:layout_marginLeft="40dp"
+        android:text="Time Left:" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/b14"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:text="Lives Left:"
+        android:textColor="@color/colorAccent"
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/b15"
+        android:layout_toRightOf="@id/textView3"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="3"
+        android:textColor="#FF0404"
+        android:textSize="40dp" />
+
+    <Button
+        android:id="@+id/restart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView3"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="30dp"
+        android:onClick="restart"
+        android:text="Restart" />
+
+    <Button
+        android:id="@+id/quit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView3"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@id/restart"
+        android:onClick="quit"
+        android:text="Quit"
+        android:textColor="#FF0404" />
 
 
 </RelativeLayout>
