@@ -3,6 +3,7 @@ package com.example.game;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +18,8 @@ public class Result extends AppCompatActivity {
 
     TextView t1;
     ImageView i1;
+    DatabaseHelper mydb;
+    TextView topscoresTV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,9 @@ public class Result extends AppCompatActivity {
 
         t1 = (TextView) findViewById(R.id.ress);
         i1 = (ImageView) findViewById(R.id.ressult);
+
+        mydb =  new DatabaseHelper(this);
+        topscoresTV = (TextView) findViewById(R.id.topscoresTV);
 
         Intent i = getIntent();
         gotresult = i.getIntExtra("result",3);
@@ -41,6 +47,8 @@ public class Result extends AppCompatActivity {
             i1.setImageResource(R.drawable.sad);
         }
         t1.setText(s);
+
+        getScores();
     }
 
     public void gotohomeagain(View view) {
@@ -52,4 +60,20 @@ public class Result extends AppCompatActivity {
         Intent obj2 = new Intent(this, Grid.class);
         startActivity(obj2);
     }
+
+    public void getScores()
+    {
+        Cursor res = mydb.getTopScores();
+        StringBuffer buffer = new StringBuffer();
+        while(res.moveToNext())
+        {
+            buffer.append(res.getString(0)+ "  ");
+            buffer.append(res.getString(1)+"  ");
+            buffer.append(res.getString(2)+"\n");
+
+        }
+        String s = buffer.toString();
+        topscoresTV.setText(s);
+    }
+
 }
