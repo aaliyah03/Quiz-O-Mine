@@ -1,38 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="#37474F">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:background="#37474F">
 
     <TextView
         android:id="@+id/gameNameTV"
-        android:layout_width="352dp"
-        android:layout_height="50dp"
+        android:layout_width="355dp"
+        android:layout_height="81dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="63dp"
+        android:layout_marginTop="32dp"
         android:layout_marginRight="20dp"
         android:backgroundTint="#FFC107"
-        android:fontFamily="@font/aldrich"
         android:text="QUIZ O' MINE"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="48sp" />
 
     <ImageView
+        android:id="@+id/gameiv"
         android:layout_width="match_parent"
-        android:layout_height="381dp"
+        android:layout_height="230dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="169dp"
+        android:layout_marginTop="127dp"
         android:layout_marginEnd="0dp"
         android:src="@drawable/download" />
+
+    <Button
+        android:id="@+id/rules"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="122dp"
+        android:background="#FFA726"
+        android:onClick="rulesopen"
+        android:text="RULES"
+        android:textColor="#000000"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="31dp" />
 
     <Button
         android:id="@+id/playButton"
@@ -42,7 +58,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginEnd="52dp"
-        android:layout_marginBottom="71dp"
+        android:layout_marginBottom="46dp"
         android:background="#FFA726"
         android:onClick="playGame"
         android:text="PLAY"
@@ -50,14 +66,50 @@
         tools:layout_editor_absoluteX="33dp"
         tools:layout_editor_absoluteY="31dp" />
 
+
+    <EditText
+        android:id="@+id/insertET"
+        android:layout_width="282dp"
+        android:layout_height="58dp"
+        android:layout_below="@id/gameiv"
+        android:layout_marginTop="25dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="New? Enter name"
+        android:inputType="textPersonName" />
+
     <TextView
-        android:id="@+id/oldPlayerTV"
-        android:layout_width="wrap_content"
+        android:id="@+id/oldTV"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="203dp"
-        android:layout_marginStart="31dp" />
+        android:text="Played before? Select your name from the list below"
+        android:textAlignment="center"
+        android:layout_below="@id/insertET"
+        android:layout_marginTop="12dp"
+        android:textSize="17sp"
+        android:textColor="#FFA726"/>
+
+
+    <Button
+        android:id="@+id/addbutton"
+        android:layout_width="83dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="37dp"
+        android:layout_marginLeft="37dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="-36dp"
+        android:layout_toEndOf="@+id/insertET"
+        android:layout_toRightOf="@+id/insertET"
+        android:background="#FFA726"
+        android:text="Add" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/insertET"
+        android:layout_marginTop="44dp" />
 
 
 </RelativeLayout>
