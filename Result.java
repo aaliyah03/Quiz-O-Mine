@@ -8,13 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 public class Result extends AppCompatActivity {
 
     String s;
-    int gotresult;
+    int gotresult, score;
 
     TextView t1;
     ImageView i1;
@@ -33,6 +34,9 @@ public class Result extends AppCompatActivity {
 
         Intent i = getIntent();
         gotresult = i.getIntExtra("result",3);
+        score = i.getIntExtra("score", 0);
+        String sc = String.valueOf(score);
+        Toast.makeText(this, sc, Toast.LENGTH_SHORT).show();
 
         if(gotresult == 1) {
             s = "YOU HAVE WON!";
