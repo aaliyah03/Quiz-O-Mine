@@ -14,6 +14,7 @@ public class Result extends AppCompatActivity {
 
     String s;
     int gotresult;
+
     TextView t1;
     ImageView i1;
     @Override
@@ -24,24 +25,26 @@ public class Result extends AppCompatActivity {
         t1 = (TextView) findViewById(R.id.ress);
         i1 = (ImageView) findViewById(R.id.ressult);
 
-        Intent i = new Intent();
-        gotresult = i.getIntExtra("result",gotresult);
-        if(gotresult == 0) {
+        Intent i = getIntent();
+        gotresult = i.getIntExtra("result",3);
+
+        if(gotresult == 1) {
+            s = "YOU HAVE WON!";
+            i1.setImageResource(R.drawable.happy);
+        }
+        else if (gotresult == 0){
             s = "YOU HAVE LOST!";
             i1.setImageResource(R.drawable.sad);
         }
-        else if (gotresult == 1){
-            s = "YOU HAVE WON";
-            i1.setImageResource(R.drawable.happy);
-        }
-        else if(gotresult == -1) {
-            s = ":o";
+        else if (gotresult == 2){
+            s = "YOU HAVE QUIT!";
+            i1.setImageResource(R.drawable.sad);
         }
         t1.setText(s);
     }
 
     public void gotohomeagain(View view) {
-        Intent obj = new Intent(this, MainActivity.class);
+        Intent obj = new Intent(this, Home.class);
         startActivity(obj);
     }
 
