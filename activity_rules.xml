@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/yo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Rules">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="486dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:text="Rules:\n\n1.Seek all safe spots, marked by green dots, on the grid within the given time limit \n 2. Whenever you accidentally visit a mine, a penalty question will be displayed for you to answer \n 3. For every wrong answer, your life will be lost. If no lives are remaining, you lose \n 4. If you're able to find all safe spots without exceeding time limit, you win!"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <Button
+        android:id="@+id/h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView3"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="32dp"
+        android:background="#FFA726"
+        android:onClick="gotohome"
+        android:text="Home"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/p"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView3"
+        android:layout_marginLeft="139dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="50dp"
+        android:layout_toRightOf="@id/h"
+        android:background="#FFA726"
+        android:onClick="gotogame"
+        android:text="Play"
+        android:textSize="20dp" />
+</RelativeLayout>
