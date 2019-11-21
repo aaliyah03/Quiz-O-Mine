@@ -29,12 +29,14 @@ public class Grid extends AppCompatActivity {
 
     //initializations
     ImageButton b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16;
-    TextView t1, counttime1;
+    TextView t1, counttime1, livest;
+
+    CountDownTimer cdt;
 
     //for quiz
     int arr[];
-    int nooflives;
-    public int counter1 = 180;
+    int nooflives = 3;
+    public int counter1 = 100;
     String questions[] = {"Amartya Sen was awarded the Nobel prize for his contribution to Literature","William Hewlett and David Packard set up a small company called apple","Pacific Ocean is the largest ocean on Earth","The National Anthem of Spain has no words","In Greek mythology, Hades, Zeus and Poseidon are all brothers.\n" +
             "\n","Angel Falls in Venezuela is the world's largest waterfall","The Earthworm has no eyes","It's colder at the Arctic than at the Antarctic","Bananas grow on trees","Carrots help you see in the dark","If a piece of paper was folded 45 times, it would reach to the moon","It rains diamonds on Saturn and Jupiter"};
     String answers[] = {"False", "False","True","True","True","True","True","False","False","False","True","True"};
@@ -43,7 +45,10 @@ public class Grid extends AppCompatActivity {
 
     //for result
     int won = -1;
+    int flag = 0;
     int green = 10; //to keep a check on green buttons clicked
+    //String sendresult = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +72,11 @@ public class Grid extends AppCompatActivity {
         b14 = (ImageButton) findViewById(R.id.b14);
         b15 = (ImageButton) findViewById(R.id.b15);
         b16 = (ImageButton) findViewById(R.id.b16);
+        livest = (TextView) findViewById(R.id.textView);
 
         counttime1 = findViewById(R.id.timer);
 
-        //final CountDownTimer timer;
-
-        new CountDownTimer(180000,1000) {
+        cdt = new CountDownTimer(100000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 counttime1.setText(String.valueOf(counter1));
@@ -81,12 +85,7 @@ public class Grid extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                //call result activity
-                //timeup();
-                Intent intent = new Intent(Grid.this, Result.class);
-                won = 0;
-                intent.putExtra("result", won);
-                startActivity(intent);
+                thisone();
             }
         }.start();
 
@@ -95,9 +94,28 @@ public class Grid extends AppCompatActivity {
         nooflives = 3;
     }
 
+    public void thisone() {
+        if(flag == 1) {
+            Intent intent = new Intent(Grid.this, Result.class);
+            intent.putExtra("result", 1);
+            startActivity(intent);
+        }
+        else if(flag == 0) {
+            Intent intent = new Intent(Grid.this, Result.class);
+            intent.putExtra("result", 0);
+            startActivity(intent);
+        }
+    }
+
     public void restart(View view) {
         Intent obj2 = new Intent(this, Grid.class);
         startActivity(obj2);
+    }
+
+    public void quit(View view) {
+        Intent obj3 = new Intent(this, Result.class);
+        obj3.putExtra("result", 2);
+        startActivity(obj3);
     }
 
     public void openDialog() {
@@ -107,7 +125,7 @@ public class Grid extends AppCompatActivity {
         // Set Custom Title
         TextView title = new TextView(this);
         // Title Properties
-        title.setText("Penalty Question!");
+        title.setText("Penalty Question! Save your life!");
         title.setPadding(10, 10, 10, 10);   // Set Position
         title.setGravity(Gravity.CENTER);
         title.setTextColor(Color.BLACK);
@@ -141,25 +159,31 @@ public class Grid extends AppCompatActivity {
                 //if answer matches then lives ++
                 if(answers[ques] == "True") {
                     Toast.makeText(getApplicationContext(),"Correct answer!",Toast.LENGTH_LONG).show();
+                    //dialog.dismiss();
+                    dialog.cancel();
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),"Wrong answer!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Wrong answer! Life Lost",Toast.LENGTH_LONG).show();
+                    sendanswer();
                 }
-                dialog.dismiss();
+
             }
         });
 
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "False", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
+
                 if(answers[ques] == "False") {
                     Toast.makeText(getApplicationContext(),"Correct answer!",Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),"Wrong answer!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Wrong answer! Life Lost",Toast.LENGTH_LONG).show();
+                    sendanswer();
                 }
-                dialog.dismiss();
+
             }
         });
 
@@ -174,6 +198,16 @@ public class Grid extends AppCompatActivity {
         okBT.setTextColor(Color.BLUE);
 
         final Button cancelBT = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        cancelBT.setTextColor(Color.BLUE);
+    }
+
+    public void sendanswer() {
+        nooflives--;
+        if(nooflives == 0) {
+            thisone();
+        }
+        String setnow = String.valueOf(nooflives);
+        livest.setText(setnow);
     }
 
     public void mine() { //will randomly generate 6 distinct random numbers between 1-16, which will act as mines
@@ -204,12 +238,11 @@ public class Grid extends AppCompatActivity {
     public void ifnotmine() {
         green --;
         if(green == 0) {
-            Intent obj = new Intent(this, Result.class);
+            //Intent obj = new Intent(this, Result.class);
             won = 1;
-            obj.putExtra("result", won);
-            startActivity(obj);
+            flag = 1;
+            thisone();
         }
-
     }
 
     public void f1(View view) {
