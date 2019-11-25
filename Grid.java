@@ -106,7 +106,7 @@ public class Grid extends AppCompatActivity {
         else if(flag == 0) {
             Intent intent = new Intent(Grid.this, Result.class);
             intent.putExtra("result", 0);
-            intent.putExtra("score", score);
+            intent.putExtra("score", 0);
             intent.putExtra("playerName", playerName);
             startActivity(intent);
         }
@@ -118,8 +118,8 @@ public class Grid extends AppCompatActivity {
     }
 
     public void quit(View view) {
-        Intent obj3 = new Intent(this, Result.class);
-        obj3.putExtra("result", 2);
+        Intent obj3 = new Intent(this, Home.class);
+        //obj3.putExtra("result", 2);
         startActivity(obj3);
     }
 
