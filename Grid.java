@@ -48,6 +48,8 @@ public class Grid extends AppCompatActivity {
     int green = 10; //to keep a check on green buttons clicked
     int score = 0;
 
+    //for storing in DB
+    String playerName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +90,7 @@ public class Grid extends AppCompatActivity {
         }.start();
 
         Intent in = getIntent();
+        playerName=in.getStringExtra("playerName");
         mine();     //mines have been generated
         nooflives = 3;
     }
@@ -97,12 +100,14 @@ public class Grid extends AppCompatActivity {
             Intent intent = new Intent(Grid.this, Result.class);
             intent.putExtra("result", 1);
             intent.putExtra("score", score);
+            intent.putExtra("playerName", playerName);
             startActivity(intent);
         }
         else if(flag == 0) {
             Intent intent = new Intent(Grid.this, Result.class);
             intent.putExtra("result", 0);
             intent.putExtra("score", score);
+            intent.putExtra("playerName", playerName);
             startActivity(intent);
         }
     }
