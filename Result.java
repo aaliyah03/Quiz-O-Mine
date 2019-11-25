@@ -2,19 +2,22 @@ package com.example.game;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.ConditionVariable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 public class Result extends AppCompatActivity {
 
-    String s;
+    String s, playerName;
     int gotresult, score;
 
     TextView t1;
@@ -35,9 +38,10 @@ public class Result extends AppCompatActivity {
         Intent i = getIntent();
         gotresult = i.getIntExtra("result",3);
         score = i.getIntExtra("score", 0);
-        String sc = String.valueOf(score);
+        playerName = i.getStringExtra("playerName");
+        String sc = "Score: "+ String.valueOf(score);
         Toast.makeText(this, sc, Toast.LENGTH_SHORT).show();
-
+        updateScore();
         if(gotresult == 1) {
             s = "YOU HAVE WON!";
             i1.setImageResource(R.drawable.happy);
@@ -65,6 +69,24 @@ public class Result extends AppCompatActivity {
         startActivity(obj2);
     }
 
+    public void updateScore()
+    {
+        Cursor res = mydb.getPlayerScore(playerName);
+        res.moveToFirst();
+
+        //getting the value from score column
+        String s = res.getString(res.getColumnIndex("SCORE"));
+        int sc = Integer.parseInt(s);
+        score = score + sc;
+        s = Integer.toString(score);
+        boolean b = mydb.updatePlayer(playerName, s);
+        if(b)
+        {
+            Toast.makeText(this,"Your score has been updated", Toast.LENGTH_SHORT).show();
+        }
+        res.close();
+    }
+
     public void getScores()
     {
         Cursor res = mydb.getTopScores();
@@ -78,6 +100,7 @@ public class Result extends AppCompatActivity {
         }
         String s = buffer.toString();
         topscoresTV.setText(s);
+        res.close();
     }
 
 }
