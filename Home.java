@@ -1,28 +1,24 @@
 package com.example.game;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.Gravity;
+
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
+
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity
+{
     Spinner s1;
     Button b1;
     int flag = 0;
@@ -31,6 +27,7 @@ public class Home extends AppCompatActivity {
     DatabaseHelper mydb;
     EditText etname;
     Spinner allPlayers;
+    String playerName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +65,8 @@ public class Home extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted= mydb.insertPlayer(etname.getText().toString(),
+                        playerName = etname.getText().toString();
+                        boolean isInserted= mydb.insertPlayer(playerName,
                                 "0");
                         if(isInserted ==true)
                             Toast.makeText(Home.this, "Player added", Toast.LENGTH_SHORT).show();
@@ -80,10 +78,9 @@ public class Home extends AppCompatActivity {
         loadSpinner(); //with new data
     }
 
-    public void loadSpinner()
-    {
-        DatabaseHelper db= new DatabaseHelper(getApplicationContext());
-        List<String> names= db.getNames();
+    public void loadSpinner() {
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        List<String> names = db.getNames();
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, names);
 
@@ -92,18 +89,25 @@ public class Home extends AppCompatActivity {
 
         // attaching data adapter to spinner
         allPlayers.setAdapter(dataAdapter);
+        allPlayers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                playerName = parent.getItemAtPosition(position).toString();
+
+                // Showing selected spinner item
+                Toast.makeText(parent.getContext(), "You selected: " + playerName,
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
 
-    public void onItemSelected(AdapterView<?> parent, View view, int position,
-                               long id) {
-        // On selecting a spinner item
-        String label = parent.getItemAtPosition(position).toString();
 
-        // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "You selected: " + label,
-                Toast.LENGTH_SHORT).show();
-
-    }
 
     public void playSong1() {
         mobj = MediaPlayer.create(this, R.raw.song);
@@ -124,6 +128,7 @@ public class Home extends AppCompatActivity {
 
     public void playGame(View view) {
         Intent obj = new Intent(this, Grid.class);
+        obj.putExtra("playerName", playerName);
         startActivity(obj);
     }
 
